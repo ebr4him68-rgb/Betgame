@@ -1,5 +1,4 @@
-
-برای بازی حداقل ۱۰دلار شارژ کنید برداشتها طی حداکثر۴۸ساعت واریز میشود
+برای بازی حساب خودرا حداقل ۱۰دلار شارژ کنید برداشتها حداکثر48ساعت ارسال میشوند
 
 
 <html lang="fa" dir="rtl">
@@ -7,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Crash Game</title>
+<title>Jungle Crash</title>
 
 <style>
 *{
@@ -16,274 +15,600 @@
 
 body{
     margin:0;
-    background:
-        radial-gradient(circle at top,#063d24,#02150d 65%);
-    color:white;
+    min-height:100vh;
     font-family:Tahoma,Arial,sans-serif;
+
+    /* زمینه زرد */
+    background:
+        radial-gradient(circle at top,#fff59d,#ffd52e 45%,#e5a900);
+
+    color:#fff;
 }
 
 .container{
-    width:95%;
+    width:94%;
     max-width:900px;
-    margin:20px auto;
+    margin:18px auto 40px;
 }
 
-/* HEADER */
+
+/* =========================
+   HEADER
+========================= */
 
 .header{
-    background:#041f14;
-    border:1px solid #20ff82;
-    border-radius:20px;
+    background:#075c2b;
+    border:3px solid #35ff8a;
+    border-radius:22px;
     padding:18px;
     text-align:center;
-    box-shadow:0 0 30px rgba(0,255,120,.18);
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.25),
+        0 0 25px rgba(0,255,100,.25);
 }
 
 .logo{
-    color:#39ff91;
-    font-size:28px;
+    font-size:30px;
     font-weight:bold;
+    color:#52ff9b;
 }
 
-/* BALANCE */
+.subtitle{
+    margin-top:7px;
+    color:#d8ffe8;
+}
+
+
+/* =========================
+   BALANCE
+========================= */
 
 .balance-box{
     margin-top:15px;
-    background:linear-gradient(135deg,#073e25,#052717);
-    border:2px solid #28ff8a;
-    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #087536,
+            #043d20
+        );
+
+    border:3px solid #43ff91;
+    border-radius:22px;
+
     text-align:center;
     padding:20px;
-    box-shadow:0 0 25px rgba(0,255,120,.15);
+
+    box-shadow:
+        0 7px 22px rgba(0,0,0,.25),
+        0 0 25px rgba(0,255,100,.2);
 }
 
 .balance-title{
-    color:#a7ffd0;
+    color:#caffdf;
     font-size:15px;
 }
 
 .balance{
     margin-top:5px;
-    color:#42ff98;
-    font-size:42px;
+
+    font-size:48px;
     font-weight:bold;
+
+    color:#fff;
+
     direction:ltr;
-    text-shadow:0 0 15px rgba(50,255,140,.45);
+
+    text-shadow:
+        0 0 12px #00ff70;
 }
 
 .currency{
-    color:#fff;
-    font-size:19px;
+    color:#b9ffd4;
 }
 
-/* GAME */
 
-.game{
-    position:relative;
-    margin-top:18px;
-    height:360px;
-    overflow:hidden;
+/* =========================
+   GENERAL PANEL
+========================= */
+
+.panel{
+    margin-top:17px;
+
     background:
-        linear-gradient(rgba(40,255,140,.07) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(40,255,140,.07) 1px,transparent 1px),
-        #03180e;
-    background-size:45px 45px;
-    border:2px solid #176d43;
+        linear-gradient(
+            145deg,
+            #075a2b,
+            #03401f
+        );
+
+    border:2px solid #20d86e;
+
     border-radius:20px;
-}
 
-.multiplier{
-    position:absolute;
-    z-index:5;
-    left:50%;
-    top:38%;
-    transform:translate(-50%,-50%);
-    font-size:65px;
-    font-weight:bold;
-    color:#45ff99;
-    text-shadow:0 0 25px rgba(40,255,130,.65);
-    direction:ltr;
-}
-
-.waiting{
-    position:absolute;
-    left:50%;
-    top:62%;
-    transform:translateX(-50%);
-    color:#8ec8a9;
-    font-size:14px;
-}
-
-/* SVG */
-
-svg{
-    position:absolute;
-    width:100%;
-    height:100%;
-    left:0;
-    bottom:0;
-}
-
-#crashLine{
-    fill:none;
-    stroke:#29ff83;
-    stroke-width:6;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-    filter:drop-shadow(0 0 8px #29ff83);
-}
-
-#area{
-    fill:rgba(22,255,120,.08);
-    stroke:none;
-}
-
-/* FIRE */
-
-.fire{
-    position:absolute;
-    width:20px;
-    height:32px;
-    display:none;
-    z-index:8;
-    transform:translate(-50%,-85%);
-}
-
-.fire:before{
-    content:"";
-    position:absolute;
-    width:18px;
-    height:28px;
-    background:#ff8c00;
-    border-radius:60% 40% 60% 40%;
-    transform:rotate(45deg);
-    box-shadow:
-        0 0 8px #ff7b00,
-        0 0 20px #ff4500;
-}
-
-.fire:after{
-    content:"";
-    position:absolute;
-    width:9px;
-    height:16px;
-    background:#fff36b;
-    border-radius:60% 40% 60% 40%;
-    transform:rotate(45deg);
-    left:5px;
-    top:8px;
-}
-
-/* CONTROL */
-
-.control{
-    margin-top:18px;
-    background:#041f14;
-    border:1px solid #155d38;
-    border-radius:20px;
     padding:18px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.25);
 }
 
-label{
-    display:block;
-    color:#a9eac5;
-    margin-bottom:7px;
+.panel h2{
+    margin-top:0;
+    color:#45ff94;
+}
+
+
+/* =========================
+   ACTIVATION
+========================= */
+
+.activation{
+    border:2px solid #30ff87;
+}
+
+.activation-info{
+    text-align:center;
+    color:#c9ffe0;
+    font-size:13px;
+    line-height:1.8;
 }
 
 input{
     width:100%;
-    background:#020e08;
-    color:white;
-    border:1px solid #217b4b;
-    border-radius:11px;
+
     padding:14px;
-    font-size:18px;
+
+    margin-top:8px;
+
+    border-radius:11px;
+
+    border:2px solid #15944b;
+
+    background:#022612;
+
+    color:white;
+
     outline:none;
+
+    font-size:16px;
+
     direction:ltr;
+
     text-align:center;
 }
 
 input:focus{
-    border-color:#36ff91;
+    border-color:#48ff99;
 }
+
+
+/* =========================
+   BUTTONS
+========================= */
 
 button{
     width:100%;
+
     padding:15px;
-    border:0;
-    border-radius:12px;
+
     margin-top:10px;
-    font-size:18px;
+
+    border:0;
+
+    border-radius:12px;
+
+    font-size:17px;
+
     font-weight:bold;
+
     cursor:pointer;
+
+    transition:.2s;
 }
 
-.start{
-    background:#18dc73;
-    color:#00170b;
+button:hover{
+    transform:translateY(-1px);
 }
 
-.start:hover{
-    background:#45ff99;
+.green-btn{
+    background:#22df76;
+    color:#00210f;
 }
 
-.cashout{
-    background:#ffb51b;
-    color:#211500;
+.green-btn:hover{
+    background:#49ff98;
+}
+
+.yellow-btn{
+    background:#ffd129;
+    color:#251c00;
+}
+
+.red-btn{
+    background:#ff4b4b;
+    color:white;
+}
+
+button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+    transform:none;
+}
+
+
+/* =========================
+   GAME PANEL
+========================= */
+
+.game-panel{
+    padding:12px;
+
+    background:#075e2d;
+
+    border:3px solid #29ed79;
+}
+
+
+/* =========================
+   FOREST GAME
+========================= */
+
+.game{
+
+    position:relative;
+
+    height:370px;
+
+    overflow:hidden;
+
+    border-radius:17px;
+
+    border:2px solid #31ff86;
+
+    /*
+       جنگل
+    */
+
+    background:
+
+        radial-gradient(
+            ellipse at 50% 100%,
+            rgba(72,155,62,.9) 0%,
+            rgba(19,84,37,.85) 35%,
+            rgba(3,35,17,.95) 75%
+        ),
+
+        linear-gradient(
+            to bottom,
+            #071e13,
+            #0b4724
+        );
+}
+
+
+/* مه جنگل */
+
+.game:before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-20%;
+
+    bottom:0;
+
+    width:140%;
+
+    height:45%;
+
+    background:
+
+        radial-gradient(
+            ellipse,
+            rgba(90,255,125,.14),
+            transparent 65%
+        );
+
+    pointer-events:none;
+}
+
+
+/* درخت‌های تزئینی */
+
+.tree{
+    position:absolute;
+
+    bottom:0;
+
+    width:70px;
+
+    height:180px;
+
+    opacity:.5;
+}
+
+.tree:before{
+
+    content:"";
+
+    position:absolute;
+
+    bottom:0;
+
+    left:32px;
+
+    width:12px;
+
+    height:115px;
+
+    background:#1a2a15;
+
+    border-radius:10px;
+}
+
+.tree:after{
+
+    content:"🌲";
+
+    position:absolute;
+
+    bottom:75px;
+
+    left:0;
+
+    font-size:85px;
+}
+
+.tree1{left:3%;}
+.tree2{left:17%;transform:scale(.75);}
+.tree3{right:5%;}
+.tree4{right:19%;transform:scale(.7);}
+
+
+/* =========================
+   MULTIPLIER
+========================= */
+
+.multiplier{
+
+    position:absolute;
+
+    z-index:10;
+
+    left:50%;
+
+    top:37%;
+
+    transform:
+        translate(-50%,-50%);
+
+    font-size:64px;
+
+    font-weight:bold;
+
+    color:#42ff96;
+
+    direction:ltr;
+
+    text-shadow:
+        0 0 10px #00ff70,
+        0 0 25px #00ff70,
+        0 0 45px rgba(0,255,100,.5);
+}
+
+.waiting{
+
+    position:absolute;
+
+    z-index:10;
+
+    left:50%;
+
+    top:58%;
+
+    transform:translateX(-50%);
+
+    color:#c6ffda;
+
+    font-size:14px;
+
+    text-align:center;
+
+    width:90%;
+}
+
+
+/* =========================
+   SVG GRAPH
+========================= */
+
+svg{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    left:0;
+    top:0;
+}
+
+#crashLine{
+
+    fill:none;
+
+    stroke:#39ff89;
+
+    stroke-width:6;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+    filter:
+        drop-shadow(0 0 8px #00ff6a);
+}
+
+#area{
+
+    fill:
+        rgba(30,255,110,.08);
+
+    stroke:none;
+}
+
+
+/* =========================
+   FIRE
+========================= */
+
+.fire{
+
+    position:absolute;
+
+    z-index:20;
+
+    width:22px;
+
+    height:34px;
+
     display:none;
-    box-shadow:0 0 18px rgba(255,180,20,.25);
+
+    transform:
+        translate(-50%,-80%);
+
+    animation:
+        fireMove .16s infinite alternate;
 }
 
-.cashout:hover{
-    background:#ffc94c;
+.fire:before{
+
+    content:"🔥";
+
+    position:absolute;
+
+    font-size:30px;
+
+    left:-5px;
+
+    top:-5px;
+
+    filter:
+        drop-shadow(0 0 8px #ff8c00);
 }
+
+@keyframes fireMove{
+
+    from{
+        transform:
+            translate(-50%,-80%)
+            rotate(-4deg);
+    }
+
+    to{
+        transform:
+            translate(-50%,-84%)
+            rotate(4deg);
+    }
+}
+
+
+/* =========================
+   BET
+========================= */
+
+.bet-title{
+    color:#c7ffdc;
+    margin-bottom:5px;
+}
+
+.bet-input{
+    direction:ltr;
+}
+
+
+/* =========================
+   STATUS
+========================= */
 
 .status{
+
     text-align:center;
-    min-height:25px;
-    margin-top:12px;
-    color:#9ee8bb;
+
+    min-height:28px;
+
+    margin-top:10px;
+
+    color:#baffd1;
+
+    line-height:1.7;
 }
 
-/* HISTORY */
 
-.history{
-    margin-top:18px;
-    background:#041f14;
-    border:1px solid #155d38;
-    border-radius:20px;
-    padding:18px;
-}
-
-.history h3{
-    margin-top:0;
-    color:#3dff94;
-}
+/* =========================
+   HISTORY
+========================= */
 
 .history-list{
+
     display:flex;
+
     flex-wrap:wrap;
+
     gap:8px;
 }
 
 .round{
-    padding:8px 12px;
+
+    background:#062c17;
+
+    border:1px solid #20b961;
+
     border-radius:8px;
-    background:#09291a;
-    color:#54ff9a;
+
+    padding:8px 12px;
+
+    color:#52ff99;
+
     direction:ltr;
 }
 
 .round.crashed{
-    color:#ff6f78;
+
+    color:#ff7777;
+
+    border-color:#9e3535;
 }
 
-/* MOBILE */
+
+/* =========================
+   SMALL
+========================= */
+
+.small{
+
+    text-align:center;
+
+    color:#a5d9b8;
+
+    font-size:11px;
+
+    line-height:1.8;
+
+    margin-top:12px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
 
     .balance{
-        font-size:34px;
+        font-size:38px;
     }
 
     .multiplier{
@@ -294,41 +619,97 @@ button{
         height:320px;
     }
 }
-
-.note{
-    text-align:center;
-    color:#6f9e84;
-    font-size:11px;
-    margin:18px 0;
-}
 </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
+
+    <!-- HEADER -->
+
     <div class="header">
-        <div class="logo">🔥 CRASH GAME</div>
-        <div style="color:#9bdcb6;margin-top:6px">
+
+        <div class="logo">
+            🌲🔥 JUNGLE CRASH
+        </div>
+
+        <div class="subtitle">
             بازی انفجار مجازی
         </div>
+
     </div>
+
 
     <!-- BALANCE -->
 
     <div class="balance-box">
 
         <div class="balance-title">
-            موجودی شما
+            موجودی دلار مجازی
         </div>
 
         <div class="balance">
-            $<span id="balance">1000.00</span>
+            $<span id="balance">0.00</span>
         </div>
 
         <div class="currency">
-            دلار مجازی
+            USD Virtual
+        </div>
+
+    </div>
+
+
+    <!-- ACTIVATION -->
+
+    <div
+        class="panel activation"
+        id="activationBox">
+
+        <h2>
+            🔐 فعال‌سازی بازی
+        </h2>
+
+        <div class="activation-info">
+
+            ابتدا آدرس USDT خود را وارد کنید.
+            <br>
+
+            پس از ثبت آدرس،
+            <b>0.05 دلار مجازی</b>
+            برای بازی فعال می‌شود.
+
+        </div>
+
+        <input
+            id="userUsdtAddress"
+            type="text"
+            placeholder="آدرس USDT - BEP20"
+            dir="ltr"
+        >
+
+        <button
+            id="activateBtn"
+            class="green-btn"
+            onclick="activateGame()">
+
+            ✅ ثبت آدرس و فعال‌سازی
+
+        </button>
+
+        <div
+            id="activationMessage"
+            class="status">
+        </div>
+
+        <div class="small">
+
+            فقط آدرس عمومی کیف پول را وارد کنید.
+            <br>
+            Seed Phrase یا Private Key لازم نیست.
+
         </div>
 
     </div>
@@ -336,98 +717,133 @@ button{
 
     <!-- GAME -->
 
-    <div class="game">
+    <div
+        class="panel game-panel"
+        id="gameSection"
+        style="display:none">
 
-        <div id="multiplier"
-             class="multiplier">
-            1.00x
+        <div class="game">
+
+            <div class="tree tree1"></div>
+            <div class="tree tree2"></div>
+            <div class="tree tree3"></div>
+            <div class="tree tree4"></div>
+
+
+            <div
+                id="multiplier"
+                class="multiplier">
+
+                1.00x
+
+            </div>
+
+
+            <div
+                id="waiting"
+                class="waiting">
+
+                مبلغ شرط را وارد کنید.
+
+            </div>
+
+
+            <svg
+                viewBox="0 0 900 370"
+                preserveAspectRatio="none">
+
+                <polygon
+                    id="area"
+                    points="0,350 0,350">
+                </polygon>
+
+                <polyline
+                    id="crashLine"
+                    points="0,350 0,350">
+                </polyline>
+
+            </svg>
+
+
+            <div
+                id="fire"
+                class="fire">
+            </div>
+
         </div>
 
-        <div id="waiting"
-             class="waiting">
-            مبلغ شرط را وارد کنید و شروع را بزنید
+
+        <!-- GAME CONTROL -->
+
+        <div class="panel">
+
+            <div class="bet-title">
+                مبلغ شرط
+            </div>
+
+            <input
+                id="bet"
+                class="bet-input"
+                type="number"
+                min="0.05"
+                step="0.01"
+                value="0.05"
+            >
+
+
+            <button
+                id="startBtn"
+                class="green-btn"
+                onclick="startGame()">
+
+                🚀 شروع بازی
+
+            </button>
+
+
+            <button
+                id="cashoutBtn"
+                class="yellow-btn"
+                onclick="cashOut()"
+                style="display:none">
+
+                💰 برداشت دستی
+
+            </button>
+
+
+            <div
+                id="status"
+                class="status">
+            </div>
+
         </div>
 
-        <svg viewBox="0 0 900 360"
-             preserveAspectRatio="none">
 
-            <polygon id="area"
-                     points="0,340 0,340">
-            </polygon>
+        <!-- HISTORY -->
 
-            <polyline id="crashLine"
-                      points="0,340 0,340">
-            </polyline>
+        <div class="panel">
 
-        </svg>
+            <h2>
+                📊 تاریخچه بازی
+            </h2>
 
-        <div id="fire"
-             class="fire">
+            <div
+                id="history"
+                class="history-list">
+            </div>
+
         </div>
 
     </div>
 
 
-    <!-- CONTROL -->
+    <div class="small">
 
-    <div class="control">
+        
+        <br>
+        ثبت آدرس USDT
 
-        <label>
-            مبلغ شرط
-        </label>
-
-        <input
-            id="bet"
-            type="number"
-            min="0.05"
-            step="0.01"
-            value="5"
-            placeholder="مثلاً 5 دلار"
-        >
-
-        <button
-            id="startBtn"
-            class="start"
-            onclick="startGame()">
-
-            🚀 شروع بازی
-
-        </button>
-
-        <button
-            id="cashoutBtn"
-            class="cashout"
-            onclick="cashOut()">
-
-            💰 برداشت دستی
-
-        </button>
-
-        <div id="status"
-             class="status">
-        </div>
-
-    </div>
-
-
-    <!-- HISTORY -->
-
-    <div class="history">
-
-        <h3>
-            تاریخچه ضرایب
-        </h3>
-
-        <div
-            id="history"
-            class="history-list">
-        </div>
-
-    </div>
-
-
-    <div class="note">
-        پرداخت واقعی 
     </div>
 
 </div>
@@ -435,33 +851,55 @@ button{
 
 <script>
 
-let balance = 1000.00;
+/* =========================
+   VARIABLES
+========================= */
+
+let balance = 0;
+
+let gameActivated = false;
+
+let userUsdtAddress = "";
 
 let playing = false;
+
 let cashedOut = false;
 
 let betAmount = 0;
+
 let multiplier = 1;
 
 let startTime = 0;
+
 let animationFrame;
 
 let crashPoint = 2.5;
 
 
-/* ELEMENTS */
+/* =========================
+   ELEMENTS
+========================= */
 
 const balanceEl =
     document.getElementById("balance");
 
+const activationBox =
+    document.getElementById("activationBox");
+
+const gameSection =
+    document.getElementById("gameSection");
+
+const activationMessage =
+    document.getElementById("activationMessage");
+
 const multiplierEl =
     document.getElementById("multiplier");
 
-const statusEl =
-    document.getElementById("status");
-
 const waitingEl =
     document.getElementById("waiting");
+
+const statusEl =
+    document.getElementById("status");
 
 const startBtn =
     document.getElementById("startBtn");
@@ -482,7 +920,9 @@ const historyEl =
     document.getElementById("history");
 
 
-/* BALANCE */
+/* =========================
+   BALANCE
+========================= */
 
 function updateBalance(){
 
@@ -492,70 +932,201 @@ function updateBalance(){
 }
 
 
-/* RANDOM CRASH */
+/* =========================
+   ACTIVATE
+========================= */
 
-function generateCrashPoint(){
+function activateGame(){
 
-    /*
-      
-      ضریب پایان هر دور به صورت تصادفی
-      تولید می‌شود.
-    */
-
-    let r = Math.random();
-
-    if(r < 0.20)
-        return 1.10 + Math.random() * 0.40;
-
-    if(r < 0.50)
-        return 1.50 + Math.random() * 1.20;
-
-    if(r < 0.80)
-        return 2.70 + Math.random() * 2.50;
-
-    return 5 + Math.random() * 6;
-
-}
-
-
-/* START */
-
-function startGame(){
-
-    if(playing)
-        return;
-
-    betAmount =
-        Number(
-            document.getElementById("bet").value
+    const input =
+        document.getElementById(
+            "userUsdtAddress"
         );
 
-    if(!betAmount || betAmount < 0.05){
+    const address =
+        input.value.trim();
 
-        alert("حداقل مبلغ شرط 0.05 دلار است.");
+
+    /* BEP20 FORMAT */
+
+    if(
+        !/^0x[a-fA-F0-9]{40}$/.test(address)
+    ){
+
+        activationMessage.innerHTML =
+            "❌ آدرس BEP-20 معتبر وارد کنید.";
+
         return;
     }
 
-    if(betAmount > balance){
 
-        alert("موجودی کافی نیست.");
-        return;
-    }
+    userUsdtAddress =
+        address;
+
+    gameActivated =
+        true;
 
 
-    /* کم کردن شرط */
+    /*
+       موجودی مجازی اولیه
+    */
 
-    balance -= betAmount;
+    balance =
+        0.05;
 
     updateBalance();
 
 
-    /* GAME STATE */
+    activationMessage.innerHTML =
+        "✅ آدرس ثبت شد. موجودی مجازی $0.05 فعال شد.";
 
-    playing = true;
-    cashedOut = false;
 
-    multiplier = 1;
+    input.readOnly =
+        true;
+
+
+    document.getElementById(
+        "activateBtn"
+    ).disabled =
+        true;
+
+
+    /*
+       نمایش بازی
+    */
+
+    setTimeout(()=>{
+
+        activationBox.style.display =
+            "none";
+
+        gameSection.style.display =
+            "block";
+
+    },700);
+
+}
+
+
+/* =========================
+   CRASH POINT
+========================= */
+
+function generateCrashPoint(){
+
+    let r =
+        Math.random();
+
+
+    if(r < .22){
+
+        return (
+            1.10 +
+            Math.random() * .45
+        );
+
+    }
+
+
+    if(r < .55){
+
+        return (
+            1.55 +
+            Math.random() * 1.35
+        );
+
+    }
+
+
+    if(r < .82){
+
+        return (
+            2.9 +
+            Math.random() * 2.5
+        );
+
+    }
+
+
+    return (
+        5.4 +
+        Math.random() * 5
+    );
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+function startGame(){
+
+    if(!gameActivated){
+
+        alert(
+            "ابتدا آدرس USDT را ثبت کنید."
+        );
+
+        return;
+    }
+
+
+    if(playing)
+        return;
+
+
+    betAmount =
+        Number(
+            document.getElementById(
+                "bet"
+            ).value
+        );
+
+
+    if(
+        !betAmount ||
+        betAmount < .05
+    ){
+
+        alert(
+            "حداقل شرط 0.05 دلار است."
+        );
+
+        return;
+    }
+
+
+    if(
+        betAmount > balance
+    ){
+
+        alert(
+            "موجودی مجازی کافی نیست."
+        );
+
+        return;
+    }
+
+
+    /*
+       کسر شرط
+    */
+
+    balance -=
+        betAmount;
+
+    updateBalance();
+
+
+    playing =
+        true;
+
+    cashedOut =
+        false;
+
+    multiplier =
+        1;
 
     crashPoint =
         generateCrashPoint();
@@ -585,7 +1156,9 @@ function startGame(){
 }
 
 
-/* ANIMATION */
+/* =========================
+   ANIMATE
+========================= */
 
 function animate(){
 
@@ -594,18 +1167,26 @@ function animate(){
 
 
     const elapsed =
-        performance.now() - startTime;
+        performance.now() -
+        startTime;
 
 
     /*
-      رشد آرام ضریب
+       رشد آرام
     */
 
     multiplier =
-        1 + Math.pow(elapsed / 10000, 1.35);
+        1 +
+        Math.pow(
+            elapsed / 10000,
+            1.35
+        );
 
 
-    if(multiplier >= crashPoint){
+    if(
+        multiplier >=
+        crashPoint
+    ){
 
         multiplier =
             crashPoint;
@@ -619,47 +1200,49 @@ function animate(){
 
 
     multiplierEl.innerText =
-        multiplier.toFixed(2) + "x";
+        multiplier.toFixed(2) +
+        "x";
 
 
     updateGraph();
 
+
     animationFrame =
-        requestAnimationFrame(animate);
+        requestAnimationFrame(
+            animate
+        );
 
 }
 
 
-/* GRAPH */
+/* =========================
+   GRAPH
+========================= */
 
 function updateGraph(){
-
-    const width = 900;
-    const height = 360;
-
-    /*
-      مسیر خط تا قبل از لبه متوقف می‌شود
-    */
 
     let progress =
         Math.min(
             (multiplier - 1) / 6,
-            .88
+            .87
         );
 
 
     let x =
-        25 + progress * 760;
+        25 +
+        progress * 760;
+
 
     let y =
-        330 -
-        progress * 260;
+        340 -
+        progress * 275;
 
 
     let points =
-        "0,340 " +
-        "25,330 " +
-        x.toFixed(1) + "," +
+        "0,350 " +
+        "25,340 " +
+        x.toFixed(1) +
+        "," +
         y.toFixed(1);
 
 
@@ -671,39 +1254,52 @@ function updateGraph(){
 
     area.setAttribute(
         "points",
-        points + " " +
-        x.toFixed(1) + ",340"
+        points +
+        " " +
+        x.toFixed(1) +
+        ",350"
     );
 
 
     /*
-      جای آتش
+       آتش روی سر خط
     */
 
     fire.style.left =
-        (x / 900 * 100) + "%";
+        (x / 900 * 100) +
+        "%";
 
     fire.style.top =
-        (y / 360 * 100) + "%";
+        (y / 370 * 100) +
+        "%";
 
 
     multiplierEl.innerText =
-        multiplier.toFixed(2) + "x";
+        multiplier.toFixed(2) +
+        "x";
 
 }
 
 
-/* CASH OUT */
+/* =========================
+   CASH OUT
+========================= */
 
 function cashOut(){
 
-    if(!playing || cashedOut)
+    if(
+        !playing ||
+        cashedOut
+    )
         return;
 
 
-    cashedOut = true;
+    cashedOut =
+        true;
 
-    playing = false;
+    playing =
+        false;
+
 
     cancelAnimationFrame(
         animationFrame
@@ -711,22 +1307,27 @@ function cashOut(){
 
 
     /*
-      مبلغ دریافتی
+       مبلغ برد
     */
 
     let win =
-        betAmount * multiplier;
+        betAmount *
+        multiplier;
 
 
-    balance += win;
+    balance +=
+        win;
+
 
     updateBalance();
 
 
     statusEl.innerHTML =
-        "✅ برداشت شد: <b>$" +
-        win.toFixed(2) +
-        "</b> در ضریب " +
+        "✅ برداشت دستی انجام شد<br>" +
+        "مبلغ: <b>$" +
+        win.toFixed(4) +
+        "</b><br>" +
+        "ضریب: " +
         multiplier.toFixed(2) +
         "x";
 
@@ -753,11 +1354,15 @@ function cashOut(){
 }
 
 
-/* CRASH */
+/* =========================
+   CRASH
+========================= */
 
 function crash(){
 
-    playing = false;
+    playing =
+        false;
+
 
     cancelAnimationFrame(
         animationFrame
@@ -767,15 +1372,11 @@ function crash(){
     statusEl.innerHTML =
         "💥 انفجار در " +
         crashPoint.toFixed(2) +
-        "x — شرط این دور از بین رفت.";
+        "x";
 
 
     waitingEl.innerText =
         "انفجار!";
-
-
-    fire.style.display =
-        "block";
 
 
     cashoutBtn.style.display =
@@ -793,7 +1394,9 @@ function crash(){
 }
 
 
-/* HISTORY */
+/* =========================
+   HISTORY
+========================= */
 
 function addHistory(
     value,
@@ -801,24 +1404,33 @@ function addHistory(
 ){
 
     const item =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     item.className =
         "round" +
-        (crashed ? " crashed" : "");
+        (
+            crashed
+            ? " crashed"
+            : ""
+        );
+
 
     item.innerText =
-        value.toFixed(2) + "x";
+        value.toFixed(2) +
+        "x";
 
-    historyEl.prepend(item);
 
+    historyEl.prepend(
+        item
+    );
 
-    /*
-      فقط 12 نتیجه آخر
-    */
 
     while(
-        historyEl.children.length > 12
+        historyEl.children.length >
+        12
     ){
 
         historyEl.removeChild(
@@ -830,7 +1442,9 @@ function addHistory(
 }
 
 
-/* INITIAL */
+/* =========================
+   INIT
+========================= */
 
 updateBalance();
 
@@ -1170,8 +1784,7 @@ input:focus{
     </div>
 
     <div class="small" style="margin:25px 0">
-        نسخه نمایشی — برای انتقال واقعی USDT باید سیستم بک‌اند امن،
-        احراز تراکنش روی بلاکچین و مدیریت کلیدها به‌صورت جداگانه پیاده‌سازی شود.
+        
     </div>
 
 </div>
