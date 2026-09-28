@@ -1,784 +1,836 @@
-برداشتها طی ۱روز کاری به حساب دلاری شما واریز میشود
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Crash Demo</title>
+
+<title>Crash Game</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 body{
- margin:0;
- background:#020805;
- color:#ecfff2;
- font-family:Tahoma,Arial,sans-serif
+    margin:0;
+    background:
+        radial-gradient(circle at top,#063d24,#02150d 65%);
+    color:white;
+    font-family:Tahoma,Arial,sans-serif;
 }
 
-.game{
- max-width:760px;
- margin:20px auto;
- padding:18px;
- background:linear-gradient(145deg,#06110a,#0b2113);
- border:1px solid #195b31;
- border-radius:22px
+.container{
+    width:95%;
+    max-width:900px;
+    margin:20px auto;
 }
 
-.top{
- display:flex;
- justify-content:space-between;
- align-items:center;
- flex-wrap:wrap;
- gap:10px;
- margin-bottom:14px
+/* HEADER */
+
+.header{
+    background:#041f14;
+    border:1px solid #20ff82;
+    border-radius:20px;
+    padding:18px;
+    text-align:center;
+    box-shadow:0 0 30px rgba(0,255,120,.18);
 }
 
-.badge{
- padding:8px 13px;
- border-radius:20px;
- background:#082817;
- border:1px solid #287542;
- color:#7cffaa;
- font-size:13px
+.logo{
+    color:#39ff91;
+    font-size:28px;
+    font-weight:bold;
+}
+
+/* BALANCE */
+
+.balance-box{
+    margin-top:15px;
+    background:linear-gradient(135deg,#073e25,#052717);
+    border:2px solid #28ff8a;
+    border-radius:20px;
+    text-align:center;
+    padding:20px;
+    box-shadow:0 0 25px rgba(0,255,120,.15);
+}
+
+.balance-title{
+    color:#a7ffd0;
+    font-size:15px;
 }
 
 .balance{
- color:#b8cdbf;
- font-size:14px
+    margin-top:5px;
+    color:#42ff98;
+    font-size:42px;
+    font-weight:bold;
+    direction:ltr;
+    text-shadow:0 0 15px rgba(50,255,140,.45);
 }
 
-.balance strong{
- color:#61ff96;
- font-size:18px
+.currency{
+    color:#fff;
+    font-size:19px;
 }
 
-/* نمودار */
+/* GAME */
 
-.chart{
- position:relative;
- height:330px;
- overflow:hidden;
- border-radius:18px;
- background:
- radial-gradient(circle at 45% 70%,
- rgba(40,255,110,.10),
- transparent 52%),
- #020603;
- border:1px solid #17472a
-}
-
-.grid{
- position:absolute;
- inset:0;
- background-image:
- linear-gradient(rgba(60,255,120,.055) 1px,transparent 1px),
- linear-gradient(90deg,rgba(60,255,120,.055) 1px,transparent 1px);
- background-size:42px 42px
-}
-
-svg{
- position:absolute;
- inset:0;
- width:100%;
- height:100%
-}
-
-.main-line{
- fill:none;
- stroke:#39ff79;
- stroke-width:5;
- stroke-linecap:round;
- filter:
- drop-shadow(0 0 5px #39ff79)
- drop-shadow(0 0 14px #39ff79)
-}
-
-.main-dot{
- fill:#d5ffe2;
- filter:
- drop-shadow(0 0 6px #39ff79)
- drop-shadow(0 0 18px #39ff79)
-}
-
-/* شعله */
-
-.flame{
- position:absolute;
- width:24px;
- height:34px;
- transform:translate(-50%,-50%);
- pointer-events:none;
- z-index:5
-}
-
-.flame:before{
- content:"";
- position:absolute;
- left:7px;
- top:4px;
- width:14px;
- height:25px;
- background:#ff3d00;
- border-radius:70% 30% 65% 35%;
- transform:rotate(45deg);
- box-shadow:
-  0 0 7px #ff4d00,
-  0 0 15px #ff7700,
-  0 0 25px rgba(255,80,0,.8);
- animation:fire .18s infinite alternate
-}
-
-.flame:after{
- content:"";
- position:absolute;
- left:10px;
- top:11px;
- width:8px;
- height:15px;
- background:#ffe45c;
- border-radius:70% 30% 65% 35%;
- transform:rotate(45deg);
- box-shadow:0 0 8px #fff06a
-}
-
-@keyframes fire{
- from{
-  transform:rotate(40deg) scale(.9);
-  opacity:.8
- }
- to{
-  transform:rotate(50deg) scale(1.08);
-  opacity:1
- }
+.game{
+    position:relative;
+    margin-top:18px;
+    height:360px;
+    overflow:hidden;
+    background:
+        linear-gradient(rgba(40,255,140,.07) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(40,255,140,.07) 1px,transparent 1px),
+        #03180e;
+    background-size:45px 45px;
+    border:2px solid #176d43;
+    border-radius:20px;
 }
 
 .multiplier{
- position:absolute;
- inset:0;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:58px;
- font-weight:bold;
- color:white;
- text-shadow:
-  0 0 12px #39ff79,
-  0 0 28px rgba(57,255,121,.55);
- pointer-events:none
+    position:absolute;
+    z-index:5;
+    left:50%;
+    top:38%;
+    transform:translate(-50%,-50%);
+    font-size:65px;
+    font-weight:bold;
+    color:#45ff99;
+    text-shadow:0 0 25px rgba(40,255,130,.65);
+    direction:ltr;
 }
 
-.status{
- position:absolute;
- bottom:12px;
- right:14px;
- color:#9bb8a5;
- font-size:13px
+.waiting{
+    position:absolute;
+    left:50%;
+    top:62%;
+    transform:translateX(-50%);
+    color:#8ec8a9;
+    font-size:14px;
 }
 
-/* موجودی */
+/* SVG */
 
-.money-panel{
- margin-top:14px;
- padding:14px;
- border-radius:15px;
- background:#06130b;
- border:1px solid #16472a
+svg{
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    bottom:0;
 }
 
-.money-title{
- display:flex;
- justify-content:space-between;
- margin-bottom:8px;
- color:#aac5b4;
- font-size:13px
+#crashLine{
+    fill:none;
+    stroke:#29ff83;
+    stroke-width:6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    filter:drop-shadow(0 0 8px #29ff83);
 }
 
-.money-value{
- color:#72ffa0;
- font-size:22px;
- font-weight:bold
+#area{
+    fill:rgba(22,255,120,.08);
+    stroke:none;
 }
 
-.money-chart{
- height:70px;
- position:relative;
- overflow:hidden;
- border-radius:10px;
- background:#030805
+/* FIRE */
+
+.fire{
+    position:absolute;
+    width:20px;
+    height:32px;
+    display:none;
+    z-index:8;
+    transform:translate(-50%,-85%);
 }
 
-.money-chart svg{
- width:100%;
- height:100%
+.fire:before{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:28px;
+    background:#ff8c00;
+    border-radius:60% 40% 60% 40%;
+    transform:rotate(45deg);
+    box-shadow:
+        0 0 8px #ff7b00,
+        0 0 20px #ff4500;
 }
 
-.money-line{
- fill:none;
- stroke:#45ff82;
- stroke-width:3;
- stroke-linecap:round;
- filter:
- drop-shadow(0 0 5px #45ff82)
- drop-shadow(0 0 10px #45ff82)
+.fire:after{
+    content:"";
+    position:absolute;
+    width:9px;
+    height:16px;
+    background:#fff36b;
+    border-radius:60% 40% 60% 40%;
+    transform:rotate(45deg);
+    left:5px;
+    top:8px;
 }
 
-.controls{
- display:grid;
- grid-template-columns:1fr auto;
- gap:10px;
- margin-top:14px
+/* CONTROL */
+
+.control{
+    margin-top:18px;
+    background:#041f14;
+    border:1px solid #155d38;
+    border-radius:20px;
+    padding:18px;
+}
+
+label{
+    display:block;
+    color:#a9eac5;
+    margin-bottom:7px;
 }
 
 input{
- width:100%;
- min-height:50px;
- border-radius:12px;
- border:1px solid #28633d;
- background:#041009;
- color:white;
- padding:12px;
- font-size:17px;
- outline:none
+    width:100%;
+    background:#020e08;
+    color:white;
+    border:1px solid #217b4b;
+    border-radius:11px;
+    padding:14px;
+    font-size:18px;
+    outline:none;
+    direction:ltr;
+    text-align:center;
+}
+
+input:focus{
+    border-color:#36ff91;
 }
 
 button{
- min-height:50px;
- padding:0 25px;
- border:0;
- border-radius:12px;
- background:linear-gradient(135deg,#16b957,#45ff82);
- color:#03200d;
- font-size:16px;
- font-weight:bold;
- cursor:pointer
+    width:100%;
+    padding:15px;
+    border:0;
+    border-radius:12px;
+    margin-top:10px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-button:disabled{
- opacity:.45;
- cursor:not-allowed
+.start{
+    background:#18dc73;
+    color:#00170b;
 }
 
-.quota{
- text-align:center;
- margin-top:10px;
- color:#9fb9a9;
- font-size:13px
+.start:hover{
+    background:#45ff99;
 }
 
-.quota b{
- color:#6cff9b
+.cashout{
+    background:#ffb51b;
+    color:#211500;
+    display:none;
+    box-shadow:0 0 18px rgba(255,180,20,.25);
 }
+
+.cashout:hover{
+    background:#ffc94c;
+}
+
+.status{
+    text-align:center;
+    min-height:25px;
+    margin-top:12px;
+    color:#9ee8bb;
+}
+
+/* HISTORY */
 
 .history{
- margin-top:16px;
- border-top:1px solid #17472a;
- padding-top:12px
+    margin-top:18px;
+    background:#041f14;
+    border:1px solid #155d38;
+    border-radius:20px;
+    padding:18px;
 }
 
-.history-title{
- color:#9db9a7;
- font-size:13px;
- margin-bottom:8px
+.history h3{
+    margin-top:0;
+    color:#3dff94;
 }
 
-.pills{
- display:flex;
- gap:7px;
- flex-wrap:wrap
+.history-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
 }
 
-.pill{
- padding:6px 9px;
- border-radius:8px;
- background:#091a10;
- border:1px solid #204b30;
- color:#b8d6c2;
- font-size:12px
+.round{
+    padding:8px 12px;
+    border-radius:8px;
+    background:#09291a;
+    color:#54ff9a;
+    direction:ltr;
 }
 
-@media(max-width:520px){
- .game{
-  margin:8px;
-  padding:12px
- }
+.round.crashed{
+    color:#ff6f78;
+}
 
- .chart{
-  height:270px
- }
+/* MOBILE */
 
- .multiplier{
-  font-size:45px
- }
+@media(max-width:600px){
 
- .controls{
-  grid-template-columns:1fr
- }
+    .balance{
+        font-size:34px;
+    }
 
- button{
-  width:100%
- }
+    .multiplier{
+        font-size:48px;
+    }
+
+    .game{
+        height:320px;
+    }
+}
+
+.note{
+    text-align:center;
+    color:#6f9e84;
+    font-size:11px;
+    margin:18px 0;
 }
 </style>
 </head>
 
 <body>
 
-<div class="game">
+<div class="container">
 
-<div class="top">
- <div class="badge">● برای شروع بازی دلارواریزکنیدوکسب درامدواقعی کنید</div>
+    <div class="header">
+        <div class="logo">🔥 CRASH GAME</div>
+        <div style="color:#9bdcb6;margin-top:6px">
+            بازی انفجار مجازی
+        </div>
+    </div>
 
- <div class="balance">
- موجودی مجازی:
- <strong id="balance">$0.001</strong>
- </div>
+    <!-- BALANCE -->
+
+    <div class="balance-box">
+
+        <div class="balance-title">
+            موجودی شما
+        </div>
+
+        <div class="balance">
+            $<span id="balance">1000.00</span>
+        </div>
+
+        <div class="currency">
+            دلار مجازی
+        </div>
+
+    </div>
+
+
+    <!-- GAME -->
+
+    <div class="game">
+
+        <div id="multiplier"
+             class="multiplier">
+            1.00x
+        </div>
+
+        <div id="waiting"
+             class="waiting">
+            مبلغ شرط را وارد کنید و شروع را بزنید
+        </div>
+
+        <svg viewBox="0 0 900 360"
+             preserveAspectRatio="none">
+
+            <polygon id="area"
+                     points="0,340 0,340">
+            </polygon>
+
+            <polyline id="crashLine"
+                      points="0,340 0,340">
+            </polyline>
+
+        </svg>
+
+        <div id="fire"
+             class="fire">
+        </div>
+
+    </div>
+
+
+    <!-- CONTROL -->
+
+    <div class="control">
+
+        <label>
+            مبلغ شرط
+        </label>
+
+        <input
+            id="bet"
+            type="number"
+            min="0.05"
+            step="0.01"
+            value="5"
+            placeholder="مثلاً 5 دلار"
+        >
+
+        <button
+            id="startBtn"
+            class="start"
+            onclick="startGame()">
+
+            🚀 شروع بازی
+
+        </button>
+
+        <button
+            id="cashoutBtn"
+            class="cashout"
+            onclick="cashOut()">
+
+            💰 برداشت دستی
+
+        </button>
+
+        <div id="status"
+             class="status">
+        </div>
+
+    </div>
+
+
+    <!-- HISTORY -->
+
+    <div class="history">
+
+        <h3>
+            تاریخچه ضرایب
+        </h3>
+
+        <div
+            id="history"
+            class="history-list">
+        </div>
+
+    </div>
+
+
+    <div class="note">
+        این نسخه صرفاً یک بازی مجازی/آزمایشی است و انتقال یا پرداخت واقعی دلار انجام نمی‌دهد.
+    </div>
+
 </div>
 
-<div class="chart">
-
- <div class="grid"></div>
-
- <svg viewBox="0 0 700 330"
-      preserveAspectRatio="none">
-
-  <path id="mainLine"
-        class="main-line"
-        d="M0 285 C100 283 180 275 260 260"/>
-
-  <circle id="mainDot"
-          class="main-dot"
-          cx="20"
-          cy="285"
-          r="7"/>
- </svg>
-
- <!-- شعله متحرک در نوک خط -->
- <div id="flame" class="flame"></div>
-
- <div id="multiplier" class="multiplier">
-  1.00x
- </div>
-
- <div id="status" class="status">
-  برای شروع راند دکمه را بزنید
- </div>
-
-</div>
-
-<div class="money-panel">
-
- <div class="money-title">
-  <span>حرکت موجودی دلار مجازی</span>
-  <span class="money-value" id="moneyValue">$0.001</span>
- </div>
-
- <div class="money-chart">
-
-  <svg viewBox="0 0 700 70"
-       preserveAspectRatio="none">
-
-   <path id="moneyLine"
-         class="money-line"
-         d="M0 55"/>
-  </svg>
-
- </div>
-</div>
-
-<div class="controls">
-
- <input id="bet"
-        type="number"
-        min="0.05"
-        step="0.01"
-        value="0.05"
-        placeholder="">
-
- <button id="start">
-  شروع راند
- </button>
-
-</div>
-
-<div class="quota">
- سهمیه آزمایشی کاربر:
- <b>$0.001</b>
-</div>
-
-<div class="history">
-
- <div class="history-title">
-  راندهای قبلی
- </div>
-
- <div id="history" class="pills">
-  <span class="pill">
-   هنوز راندی ثبت نشده
-  </span>
- </div>
-
-</div>
-
-</div>
 
 <script>
 
-const startButton =
- document.getElementById("start");
+let balance = 1000.00;
 
-const betInput =
- document.getElementById("bet");
+let playing = false;
+let cashedOut = false;
 
-const multiplier =
- document.getElementById("multiplier");
+let betAmount = 0;
+let multiplier = 1;
 
-const statusText =
- document.getElementById("status");
+let startTime = 0;
+let animationFrame;
 
-const mainLine =
- document.getElementById("mainLine");
-
-const mainDot =
- document.getElementById("mainDot");
-
-const flame =
- document.getElementById("flame");
-
-const balanceElement =
- document.getElementById("balance");
-
-const moneyValue =
- document.getElementById("moneyValue");
-
-const moneyLine =
- document.getElementById("moneyLine");
-
-const historyElement =
- document.getElementById("history");
-
-let balance = 0.001;
-let running = false;
-let animationFrame = null;
-let history = [];
+let crashPoint = 2.5;
 
 
-/* نمایش موجودی */
-function showBalance(value){
+/* ELEMENTS */
 
- const safe =
-   Math.max(0,value);
+const balanceEl =
+    document.getElementById("balance");
 
- balanceElement.textContent =
-   "$"+safe.toFixed(4);
+const multiplierEl =
+    document.getElementById("multiplier");
 
- moneyValue.textContent =
-   "$"+safe.toFixed(4);
+const statusEl =
+    document.getElementById("status");
+
+const waitingEl =
+    document.getElementById("waiting");
+
+const startBtn =
+    document.getElementById("startBtn");
+
+const cashoutBtn =
+    document.getElementById("cashoutBtn");
+
+const line =
+    document.getElementById("crashLine");
+
+const area =
+    document.getElementById("area");
+
+const fire =
+    document.getElementById("fire");
+
+const historyEl =
+    document.getElementById("history");
+
+
+/* BALANCE */
+
+function updateBalance(){
+
+    balanceEl.innerText =
+        balance.toFixed(2);
+
 }
 
 
-/*
-   تابع اصلی راند
+/* RANDOM CRASH */
 
-   مدت راند عمداً طولانی‌تر شده
-   و حرکت خط با easing نرم انجام می‌شود.
-*/
-function startRound(){
+function generateCrashPoint(){
 
- if(running)return;
+    /*
+      فقط برای بازی آزمایشی.
+      ضریب پایان هر دور به صورت تصادفی
+      تولید می‌شود.
+    */
 
- const bet =
-   Number(betInput.value);
+    let r = Math.random();
 
- if(!Number.isFinite(bet) || bet < 0.05){
+    if(r < 0.20)
+        return 1.10 + Math.random() * 0.40;
 
-   statusText.textContent =
-     "حداقل شرط مجازی ۰٫۰۵ است";
+    if(r < 0.50)
+        return 1.50 + Math.random() * 1.20;
 
-   return;
- }
+    if(r < 0.80)
+        return 2.70 + Math.random() * 2.50;
 
- running = true;
+    return 5 + Math.random() * 6;
 
- startButton.disabled = true;
- betInput.disabled = true;
-
- /*
-    مدت زمان طولانی‌تر:
-    خط خیلی آرام‌تر بالا می‌رود.
- */
- const duration =
-   10000 + Math.random()*5000;
-
- /*
-    ضریب انفجار برای دمو
- */
- const crash =
-   1.35 + Math.random()*7;
-
- const startTime =
-   performance.now();
-
- statusText.textContent =
-   "ضریب در حال افزایش است...";
+}
 
 
- function animate(now){
+/* START */
 
-  if(!running)return;
+function startGame(){
 
-  const raw =
-    Math.min(
-      (now-startTime)/duration,
-      1
-    );
+    if(playing)
+        return;
 
-  /*
-     easing آهسته و نرم
-  */
-  const progress =
-    raw*raw*(3-2*raw);
+    betAmount =
+        Number(
+            document.getElementById("bet").value
+        );
 
-  /*
-     ضریب
-  */
-  const current =
-    1+(crash-1)*progress;
+    if(!betAmount || betAmount < 0.05){
 
-  multiplier.textContent =
-    current.toFixed(2)+"x";
+        alert("حداقل مبلغ شرط 0.05 دلار است.");
+        return;
+    }
 
+    if(betAmount > balance){
 
-  /*
-     محدوده کاملاً محدود شده:
-
-     X هرگز از 650 عبور نمی‌کند.
-     Y هرگز به بالاترین لبه نمی‌رسد.
-  */
-
-  const x =
-    25 + 625*progress;
-
-  const y =
-    285 -
-    225*Math.pow(progress,1.45);
+        alert("موجودی کافی نیست.");
+        return;
+    }
 
 
-  /*
-     مسیر نرم
-  */
+    /* کم کردن شرط */
 
-  const control1X =
-    x*0.35;
+    balance -= betAmount;
 
-  const control2X =
-    x*0.70;
-
-  const control1Y =
-    285 -
-    25*progress;
-
-  const control2Y =
-    y+65;
-
-  const path =
-   `M25 285
-    C${control1X} ${control1Y},
-     ${control2X} ${control2Y},
-     ${x} ${y}`;
-
-  mainLine.setAttribute(
-    "d",
-    path
-  );
+    updateBalance();
 
 
-  /*
-     نقطه انتهای خط
-  */
+    /* GAME STATE */
 
-  mainDot.setAttribute(
-    "cx",
-    x
-  );
+    playing = true;
+    cashedOut = false;
 
-  mainDot.setAttribute(
-    "cy",
-    y
-  );
+    multiplier = 1;
 
+    crashPoint =
+        generateCrashPoint();
 
-  /*
-     شعله دقیقاً روی نوک خط
-  */
-
-  flame.style.left =
-    ((x/700)*100)+"%";
-
-  flame.style.top =
-    ((y/330)*100)+"%";
+    startTime =
+        performance.now();
 
 
-  /*
-     موجودی مجازی نمایشی
-  */
+    startBtn.style.display =
+        "none";
 
-  const virtualBalance =
-    Math.max(
-      0,
-      balance-bet+
-      bet*(current-1)*0.15
-    );
+    cashoutBtn.style.display =
+        "block";
 
-  showBalance(
-    virtualBalance
-  );
+    waitingEl.innerText =
+        "ضریب در حال افزایش است...";
 
+    statusEl.innerText =
+        "در هر لحظه می‌توانید برداشت کنید.";
 
-  /*
-     نمودار موجودی
-  */
-
-  const moneyX =
-    700*progress;
-
-  const moneyY =
-    55-
-    38*progress+
-    Math.sin(progress*16)*3;
-
-  moneyLine.setAttribute(
-    "d",
-    `M0 55
-     C${moneyX*.35} 54,
-      ${moneyX*.70} ${moneyY+15},
-      ${moneyX} ${moneyY}`
-  );
+    fire.style.display =
+        "block";
 
 
-  /*
-     ادامه حرکت
-  */
+    animate();
 
-  if(raw < 1){
+}
+
+
+/* ANIMATION */
+
+function animate(){
+
+    if(!playing)
+        return;
+
+
+    const elapsed =
+        performance.now() - startTime;
+
+
+    /*
+      رشد آرام ضریب
+    */
+
+    multiplier =
+        1 + Math.pow(elapsed / 10000, 1.35);
+
+
+    if(multiplier >= crashPoint){
+
+        multiplier =
+            crashPoint;
+
+        updateGraph();
+
+        crash();
+
+        return;
+    }
+
+
+    multiplierEl.innerText =
+        multiplier.toFixed(2) + "x";
+
+
+    updateGraph();
 
     animationFrame =
-      requestAnimationFrame(
-        animate
-      );
+        requestAnimationFrame(animate);
 
-  }else{
-
-    finishRound(crash);
-  }
- }
-
-
- animationFrame =
-   requestAnimationFrame(
-     animate
-   );
 }
 
 
-/* پایان راند */
-function finishRound(crash){
+/* GRAPH */
 
- running = false;
+function updateGraph(){
 
- cancelAnimationFrame(
-   animationFrame
- );
+    const width = 900;
+    const height = 360;
 
- /*
-    خط در محدوده باقی می‌ماند
-    و از نمودار خارج نمی‌شود.
- */
+    /*
+      مسیر خط تا قبل از لبه متوقف می‌شود
+    */
 
- multiplier.textContent =
-   crash.toFixed(2)+"x";
+    let progress =
+        Math.min(
+            (multiplier - 1) / 6,
+            .88
+        );
 
- statusText.textContent =
-   "💥 انفجار — راند تمام شد";
 
- /*
-    شعله خاموش می‌شود.
- */
+    let x =
+        25 + progress * 760;
 
- flame.style.opacity =
-   "0";
+    let y =
+        330 -
+        progress * 260;
 
- history.unshift(
-   crash.toFixed(2)+"x"
- );
 
- history =
-   history.slice(0,8);
+    let points =
+        "0,340 " +
+        "25,330 " +
+        x.toFixed(1) + "," +
+        y.toFixed(1);
 
- historyElement.innerHTML =
-   history.map(
-    value =>
-     `<span class="pill">${value}</span>`
-   ).join("");
 
- setTimeout(
-   resetRound,
-   2000
- );
+    line.setAttribute(
+        "points",
+        points
+    );
+
+
+    area.setAttribute(
+        "points",
+        points + " " +
+        x.toFixed(1) + ",340"
+    );
+
+
+    /*
+      جای آتش
+    */
+
+    fire.style.left =
+        (x / 900 * 100) + "%";
+
+    fire.style.top =
+        (y / 360 * 100) + "%";
+
+
+    multiplierEl.innerText =
+        multiplier.toFixed(2) + "x";
+
 }
 
 
-/* راند جدید */
-function resetRound(){
+/* CASH OUT */
 
- startButton.disabled = false;
- betInput.disabled = false;
+function cashOut(){
 
- multiplier.textContent =
-   "1.00x";
+    if(!playing || cashedOut)
+        return;
 
- statusText.textContent =
-   "برای شروع راند دکمه را بزنید";
 
- mainLine.setAttribute(
-   "d",
-   "M25 285 C90 283 170 278 260 260"
- );
+    cashedOut = true;
 
- mainDot.setAttribute(
-   "cx",
-   "25"
- );
+    playing = false;
 
- mainDot.setAttribute(
-   "cy",
-   "285"
- );
+    cancelAnimationFrame(
+        animationFrame
+    );
 
- flame.style.left =
-   "3.5%";
 
- flame.style.top =
-   "86%";
+    /*
+      مبلغ دریافتی
+    */
 
- flame.style.opacity =
-   "1";
+    let win =
+        betAmount * multiplier;
 
- moneyLine.setAttribute(
-   "d",
-   "M0 55"
- );
 
- showBalance(balance);
+    balance += win;
+
+    updateBalance();
+
+
+    statusEl.innerHTML =
+        "✅ برداشت شد: <b>$" +
+        win.toFixed(2) +
+        "</b> در ضریب " +
+        multiplier.toFixed(2) +
+        "x";
+
+
+    waitingEl.innerText =
+        "برداشت موفق";
+
+
+    cashoutBtn.style.display =
+        "none";
+
+    startBtn.style.display =
+        "block";
+
+    fire.style.display =
+        "none";
+
+
+    addHistory(
+        multiplier,
+        false
+    );
+
 }
 
 
-startButton.addEventListener(
- "click",
- startRound
-);
+/* CRASH */
 
-resetRound();
+function crash(){
+
+    playing = false;
+
+    cancelAnimationFrame(
+        animationFrame
+    );
+
+
+    statusEl.innerHTML =
+        "💥 انفجار در " +
+        crashPoint.toFixed(2) +
+        "x — شرط این دور از بین رفت.";
+
+
+    waitingEl.innerText =
+        "انفجار!";
+
+
+    fire.style.display =
+        "block";
+
+
+    cashoutBtn.style.display =
+        "none";
+
+    startBtn.style.display =
+        "block";
+
+
+    addHistory(
+        crashPoint,
+        true
+    );
+
+}
+
+
+/* HISTORY */
+
+function addHistory(
+    value,
+    crashed
+){
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "round" +
+        (crashed ? " crashed" : "");
+
+    item.innerText =
+        value.toFixed(2) + "x";
+
+    historyEl.prepend(item);
+
+
+    /*
+      فقط 12 نتیجه آخر
+    */
+
+    while(
+        historyEl.children.length > 12
+    ){
+
+        historyEl.removeChild(
+            historyEl.lastChild
+        );
+
+    }
+
+}
+
+
+/* INITIAL */
+
+updateBalance();
 
 </script>
 <!DOCTYPE html>
@@ -1554,4 +1606,3 @@ function clearTransactions(){
 </html>
 </body>
 </html>
-```
