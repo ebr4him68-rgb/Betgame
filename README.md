@@ -1,4 +1,5 @@
-
+برداشتها طی ۱روز کاری به حساب دلاری شما واریز میشود
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -326,7 +327,7 @@ button:disabled{
 <div class="game">
 
 <div class="top">
- <div class="badge">● حالت آزمایشی — بدون پول واقعی</div>
+ <div class="badge">● برای شروع بازی دلارواریزکنیدوکسب درامدواقعی کنید</div>
 
  <div class="balance">
  موجودی مجازی:
@@ -392,7 +393,7 @@ button:disabled{
         min="0.05"
         step="0.01"
         value="0.05"
-        placeholder="مبلغ مجازی">
+        placeholder="">
 
  <button id="start">
   شروع راند
@@ -784,317 +785,773 @@ resetRound();
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>USDT Wallet Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USDT Wallet - BEP20</title>
+
 <style>
+*{box-sizing:border-box}
+
 body{
-  margin:0;background:#07130d;color:#ecfff2;
-  font-family:Tahoma,Arial,sans-serif
+    margin:0;
+    font-family:Tahoma,Arial,sans-serif;
+    background:linear-gradient(135deg,#031d12,#063d24,#02140c);
+    color:#fff;
 }
-.container{max-width:650px;margin:25px auto;padding:15px}
+
+.container{
+    width:94%;
+    max-width:850px;
+    margin:30px auto;
+}
+
+.header{
+    background:rgba(5,35,22,.95);
+    border:1px solid #19e67b;
+    border-radius:20px;
+    padding:22px;
+    text-align:center;
+    box-shadow:0 0 25px rgba(0,255,120,.15);
+}
+
+.header h1{
+    margin:0 0 8px;
+    color:#28ff8a;
+}
+
+.network{
+    color:#b8ffd5;
+    font-size:14px;
+}
+
 .card{
-  background:#0c2115;border:1px solid #205c35;
-  border-radius:18px;padding:18px;margin-bottom:15px
+    background:rgba(4,31,20,.96);
+    border:1px solid rgba(40,255,138,.35);
+    border-radius:18px;
+    padding:20px;
+    margin-top:18px;
 }
-h2{margin-top:0;color:#71ff9b}
-label{display:block;margin:12px 0 6px;color:#aac7b5}
-input{
-  width:100%;box-sizing:border-box;padding:13px;
-  border-radius:10px;border:1px solid #326d46;
-  background:#061009;color:white;font-size:16px
+
+.card h2{
+    margin-top:0;
+    color:#35ff91;
 }
+
+.address-box{
+    background:#020b07;
+    border:1px solid #20d974;
+    border-radius:12px;
+    padding:12px;
+}
+
+.address{
+    width:100%;
+    background:#071d12;
+    color:#72ffad;
+    border:1px solid #168a4c;
+    border-radius:9px;
+    padding:13px;
+    direction:ltr;
+    text-align:center;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
 button{
-  margin-top:12px;width:100%;padding:13px;
-  border:0;border-radius:10px;
-  background:#32df72;color:#03200e;
-  font-weight:bold;font-size:16px
+    width:100%;
+    border:0;
+    border-radius:11px;
+    padding:13px;
+    margin-top:8px;
+    background:#18d873;
+    color:#00180c;
+    font-weight:bold;
+    cursor:pointer;
 }
-.info{
-  background:#071a0d;border:1px solid #174c2b;
-  border-radius:10px;padding:12px;margin-top:12px;
-  color:#9fc2aa
+
+button:hover{
+    background:#38ff91;
 }
-.hidden{display:none}
-.request{
-  background:#07170d;border:1px solid #1c4c2c;
-  padding:12px;border-radius:10px;margin-top:8px
+
+button.red{
+    background:#ff4e61;
+    color:#fff;
 }
-.small{font-size:12px;color:#8da99a}
-.success{color:#6dff9a}
-.error{color:#ff8585}
+
+button.orange{
+    background:#ffb020;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #176f43;
+    background:#06150e;
+    color:#fff;
+    margin:7px 0;
+    outline:none;
+}
+
+input:focus{
+    border-color:#28ff8a;
+}
+
+.message{
+    text-align:center;
+    margin-top:10px;
+    color:#61ff9f;
+    font-size:14px;
+}
+
+.balance{
+    text-align:center;
+    font-size:27px;
+    color:#38ff91;
+    padding:10px;
+}
+
+.rules{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.rule{
+    background:#06170e;
+    padding:13px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.lock{
+    text-align:center;
+    font-size:45px;
+}
+
+.admin-panel{
+    display:none;
+}
+
+.tx{
+    background:#06180f;
+    border:1px solid #175c39;
+    border-radius:12px;
+    padding:14px;
+    margin-top:10px;
+}
+
+.tx span{
+    display:block;
+    margin:5px 0;
+    font-size:13px;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:7px;
+    background:#735600;
+}
+
+.empty{
+    text-align:center;
+    color:#8eb6a0;
+    padding:20px;
+}
+
+.small{
+    font-size:11px;
+    color:#8eb6a0;
+    text-align:center;
+    margin-top:10px;
+}
+
+@media(max-width:600px){
+    .rules{
+        grid-template-columns:1fr;
+    }
+
+    .address{
+        font-size:11px;
+    }
+}
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
-<div class="card">
-<h2>USDT Wallet</h2>
+    <div class="header">
+        <h1>USDT WALLET</h1>
+        <div class="network">
+            شبکه: BNB Smart Chain (BEP-20)
+        </div>
+    </div>
 
-<div class="info">
-شبکه: <b>BNB Smart Chain (BEP-20)</b><br>
-حداقل واریز: <b>10 USDT</b><br>
-حداقل برداشت: <b>100 USDT</b>
+    <!-- BALANCE -->
+    <div class="card">
+        <h2>موجودی</h2>
+        <div class="balance">
+            <span id="balance">0.00</span> USDT
+        </div>
+    </div>
+
+    <!-- DEPOSIT -->
+    <div class="card">
+        <h2>💰 واریز USDT</h2>
+
+        <div class="address-box">
+            <div style="margin-bottom:8px;color:#baffd4">
+                آدرس واریز USDT روی شبکه BEP-20:
+            </div>
+
+            <input
+                id="depositAddress"
+                class="address"
+                value="0x3765C083F36B7D874d3a6249436a84C9e9bDAbA6"
+                readonly
+            >
+
+            <button onclick="copyAddress()">
+                📋 کپی آدرس
+            </button>
+
+            <div id="copyMessage" class="message"></div>
+        </div>
+
+        <input
+            id="depositAmount"
+            type="number"
+            min="10"
+            placeholder="مبلغ واریز - حداقل 10 USDT"
+        >
+
+        <input
+            id="depositTx"
+            placeholder="TXID تراکنش را وارد کنید"
+            dir="ltr"
+        >
+
+        <button onclick="submitDeposit()">
+            ثبت واریز
+        </button>
+
+        <div class="small">
+            فقط USDT روی شبکه BNB Smart Chain (BEP-20)
+        </div>
+    </div>
+
+    <!-- WITHDRAW -->
+    <div class="card">
+        <h2>💸 برداشت USDT</h2>
+
+        <input
+            id="withdrawAmount"
+            type="number"
+            min="100"
+            placeholder="مبلغ برداشت - حداقل 100 USDT"
+        >
+
+        <input
+            id="withdrawAddress"
+            placeholder="آدرس کیف پول BEP-20"
+            dir="ltr"
+        >
+
+        <button onclick="submitWithdraw()">
+            ثبت درخواست برداشت
+        </button>
+
+        <div id="withdrawMessage" class="message"></div>
+
+        <div class="small">
+            پرداخت برداشت‌ها در این نسخه به صورت دستی توسط مدیر انجام می‌شود.
+        </div>
+    </div>
+
+    <!-- ADMIN LOCK -->
+    <div class="card">
+        <div class="lock">🔐</div>
+        <h2 style="text-align:center">
+            تراکنش‌های خصوصی مدیریت
+        </h2>
+
+        <input
+            id="adminPassword"
+            type="password"
+            placeholder="رمز مدیریت را وارد کنید"
+        >
+
+        <button onclick="unlockAdmin()">
+            🔓 ورود به تراکنش‌های خصوصی
+        </button>
+
+        <div id="adminLoginMessage" class="message"></div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="adminPanel" class="card admin-panel">
+
+        <h2>🔐 پنل خصوصی مدیریت</h2>
+
+        <div style="color:#baffd4;margin-bottom:12px">
+            این بخش فقط پس از وارد کردن رمز نمایش داده می‌شود.
+        </div>
+
+        <button class="red" onclick="lockAdmin()">
+            🔒 قفل کردن پنل
+        </button>
+
+        <div id="transactions">
+            <div class="empty">
+                هنوز تراکنشی ثبت نشده است.
+            </div>
+        </div>
+
+        <button class="orange" onclick="clearTransactions()">
+            پاک کردن تراکنش‌های ذخیره‌شده
+        </button>
+
+    </div>
+
+    <div class="small" style="margin:25px 0">
+        نسخه نمایشی — برای انتقال واقعی USDT باید سیستم بک‌اند امن،
+        احراز تراکنش روی بلاکچین و مدیریت کلیدها به‌صورت جداگانه پیاده‌سازی شود.
+    </div>
+
 </div>
-</div>
 
-<div class="card">
-<h2>واریز USDT</h2>
-
-<label>مقدار واریز</label>
-<input id="depositAmount" type="number" min="10" step="0.01"
-       placeholder="حداقل 10 USDT">
-
-<label>شناسه تراکنش / TXID</label>
-<input id="depositTx" type="text"
-       placeholder="برای نسخه آزمایشی">
-
-<button onclick="submitDeposit()">ثبت واریز</button>
-
-<div id="depositMessage"></div>
-</div>
-
-<div class="card">
-<h2>برداشت USDT</h2>
-
-<label>مقدار برداشت</label>
-<input id="withdrawAmount" type="number" min="100" step="0.01"
-       placeholder="حداقل 100 USDT">
-
-<label>آدرس کیف پول BEP-20</label>
-<input id="withdrawAddress" type="text"
-       placeholder="0x...">
-
-<button onclick="submitWithdraw()">ثبت درخواست برداشت</button>
-
-<div id="withdrawMessage"></div>
-</div>
-
-<div class="card">
-<h2>پنل مدیریت</h2>
-
-<input id="adminPassword"
-       type="password"
-       placeholder="رمز مدیریت">
-
-<button onclick="loginAdmin()">ورود به پنل</button>
-
-<div id="adminPanel" class="hidden">
-
-<h3>درخواست‌ها</h3>
-<div id="requests"></div>
-
-</div>
-</div>
-
-</div>
 
 <script>
 
-/*
- نسخه دمو:
- اطلاعات فقط در حافظه مرورگر نگهداری می‌شوند.
- برای استفاده واقعی باید احراز هویت، دیتابیس،
- کنترل دسترسی سمت سرور و ثبت سوابق تراکنش اضافه شود.
-*/
+const USDT_ADDRESS =
+"0x3765C083F36B7D874d3a6249436a84C9e9bDAbA6";
 
-const ADMIN_PASSWORD = "CHANGE_THIS_PASSWORD";
+const ADMIN_PASSWORD =
+"DogeAdmin@2026";
 
-let requests = [];
+const MIN_DEPOSIT = 10;
+const MIN_WITHDRAW = 100;
 
 
-/* ثبت واریز */
+/* =========================
+   COPY ADDRESS
+========================= */
+
+async function copyAddress(){
+
+    const message =
+        document.getElementById("copyMessage");
+
+    try{
+
+        await navigator.clipboard.writeText(USDT_ADDRESS);
+
+        message.innerText =
+            "✅ آدرس با موفقیت کپی شد";
+
+    }catch(e){
+
+        const input =
+            document.getElementById("depositAddress");
+
+        input.select();
+        input.setSelectionRange(0,99999);
+
+        document.execCommand("copy");
+
+        message.innerText =
+            "✅ آدرس کپی شد";
+    }
+
+    setTimeout(()=>{
+        message.innerText="";
+    },3000);
+}
+
+
+/* =========================
+   STORAGE
+========================= */
+
+function getTransactions(){
+
+    return JSON.parse(
+        localStorage.getItem("usdt_transactions") || "[]"
+    );
+
+}
+
+function saveTransactions(data){
+
+    localStorage.setItem(
+        "usdt_transactions",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================
+   DEPOSIT
+========================= */
+
 function submitDeposit(){
 
- const amount =
-   Number(document.getElementById("depositAmount").value);
+    const amount =
+        Number(document.getElementById("depositAmount").value);
 
- const tx =
-   document.getElementById("depositTx").value.trim();
+    const txid =
+        document.getElementById("depositTx").value.trim();
 
- const msg =
-   document.getElementById("depositMessage");
+    if(amount < MIN_DEPOSIT){
 
- if(!Number.isFinite(amount) || amount < 10){
+        alert("حداقل واریز 10 USDT است.");
+        return;
+    }
 
-   msg.className="error";
-   msg.textContent="حداقل واریز 10 USDT است.";
-   return;
- }
+    if(!txid){
 
- if(!tx){
+        alert("TXID تراکنش را وارد کنید.");
+        return;
+    }
 
-   msg.className="error";
-   msg.textContent="شناسه تراکنش را وارد کنید.";
-   return;
- }
+    const transactions = getTransactions();
 
- requests.push({
-   type:"deposit",
-   amount:amount,
-   tx:tx,
-   status:"در انتظار بررسی"
- });
+    transactions.unshift({
 
- msg.className="success";
- msg.textContent="درخواست واریز ثبت شد.";
+        id:Date.now(),
 
- renderRequests();
+        type:"deposit",
+
+        amount:amount,
+
+        address:USDT_ADDRESS,
+
+        txid:txid,
+
+        status:"در انتظار بررسی",
+
+        date:new Date().toLocaleString("fa-IR")
+
+    });
+
+    saveTransactions(transactions);
+
+    document.getElementById("depositAmount").value="";
+    document.getElementById("depositTx").value="";
+
+    alert(
+        "درخواست واریز ثبت شد و پس از بررسی مدیر قابل تأیید است."
+    );
+
 }
 
 
-/* ثبت برداشت */
+/* =========================
+   WITHDRAW
+========================= */
+
 function submitWithdraw(){
 
- const amount =
-   Number(document.getElementById("withdrawAmount").value);
+    const amount =
+        Number(document.getElementById("withdrawAmount").value);
 
- const address =
-   document.getElementById("withdrawAddress").value.trim();
+    const address =
+        document.getElementById("withdrawAddress").value.trim();
 
- const msg =
-   document.getElementById("withdrawMessage");
+    if(amount < MIN_WITHDRAW){
 
- if(!Number.isFinite(amount) || amount < 100){
+        alert("حداقل برداشت 100 USDT است.");
+        return;
+    }
 
-   msg.className="error";
-   msg.textContent="حداقل برداشت 100 USDT است.";
-   return;
- }
+    if(!/^0x[a-fA-F0-9]{40}$/.test(address)){
 
- if(!address){
+        alert(
+            "آدرس BEP-20 واردشده از نظر فرمت صحیح نیست."
+        );
 
-   msg.className="error";
-   msg.textContent="آدرس کیف پول را وارد کنید.";
-   return;
- }
+        return;
+    }
 
- if(!/^0x[a-fA-F0-9]{40}$/.test(address)){
+    const transactions = getTransactions();
 
-   msg.className="error";
-   msg.textContent="فرمت آدرس BEP-20 صحیح نیست.";
-   return;
- }
+    transactions.unshift({
 
- requests.push({
-   type:"withdraw",
-   amount:amount,
-   address:address,
-   status:"در انتظار پرداخت"
- });
+        id:Date.now(),
 
- msg.className="success";
- msg.textContent="درخواست برداشت ثبت شد.";
+        type:"withdraw",
 
- renderRequests();
+        amount:amount,
+
+        address:address,
+
+        status:"در انتظار پرداخت",
+
+        date:new Date().toLocaleString("fa-IR")
+
+    });
+
+    saveTransactions(transactions);
+
+    document.getElementById("withdrawAmount").value="";
+    document.getElementById("withdrawAddress").value="";
+
+    document.getElementById("withdrawMessage").innerText =
+        "✅ درخواست برداشت ثبت شد.";
+
 }
 
 
-/* ورود مدیر */
-function loginAdmin(){
+/* =========================
+   ADMIN LOGIN
+========================= */
 
- const password =
-   document.getElementById("adminPassword").value;
+function unlockAdmin(){
 
- if(password !== ADMIN_PASSWORD){
+    const password =
+        document.getElementById("adminPassword").value;
 
-   alert("رمز اشتباه است.");
-   return;
- }
+    if(password === ADMIN_PASSWORD){
 
- document
-   .getElementById("adminPanel")
-   .classList.remove("hidden");
+        document.getElementById("adminPanel").style.display =
+            "block";
 
- renderRequests();
+        document.getElementById("adminLoginMessage").innerText =
+            "✅ پنل مدیریت باز شد.";
+
+        renderTransactions();
+
+    }else{
+
+        document.getElementById("adminLoginMessage").innerText =
+            "❌ رمز مدیریت اشتباه است.";
+
+    }
+
 }
 
 
-/* نمایش درخواست‌ها */
-function renderRequests(){
+/* =========================
+   ADMIN LOCK
+========================= */
 
- const box =
-   document.getElementById("requests");
+function lockAdmin(){
 
- if(!box)return;
+    document.getElementById("adminPanel").style.display =
+        "none";
 
- if(requests.length === 0){
+    document.getElementById("adminPassword").value="";
 
-   box.innerHTML =
-     "<p class='small'>درخواستی وجود ندارد.</p>";
+    document.getElementById("adminLoginMessage").innerText =
+        "🔒 پنل قفل شد.";
 
-   return;
- }
-
- box.innerHTML = requests.map((r,i)=>{
-
-   if(r.type === "deposit"){
-
-     return `
-       <div class="request">
-         <b>واریز</b><br>
-         مقدار: ${r.amount} USDT<br>
-         TXID: ${escapeHtml(r.tx)}<br>
-         وضعیت: ${r.status}
-
-         <button onclick="setStatus(${i},'تأیید شد')">
-           تأیید
-         </button>
-
-         <button onclick="setStatus(${i},'رد شد')">
-           رد
-         </button>
-       </div>
-     `;
-   }
-
-   return `
-     <div class="request">
-       <b>برداشت</b><br>
-       مقدار: ${r.amount} USDT<br>
-       آدرس: ${escapeHtml(r.address)}<br>
-       وضعیت: ${r.status}
-
-       <button onclick="setStatus(${i},'پرداخت شد')">
-         ثبت به‌عنوان پرداخت‌شده
-       </button>
-
-       <button onclick="setStatus(${i},'رد شد')">
-         رد درخواست
-       </button>
-     </div>
-   `;
-
- }).join("");
 }
 
 
-/* تغییر وضعیت */
-function setStatus(index,status){
+/* =========================
+   TRANSACTIONS
+========================= */
 
- requests[index].status = status;
+function renderTransactions(){
 
- renderRequests();
+    const box =
+        document.getElementById("transactions");
+
+    const transactions =
+        getTransactions();
+
+    if(transactions.length === 0){
+
+        box.innerHTML =
+            '<div class="empty">هنوز تراکنشی ثبت نشده است.</div>';
+
+        return;
+    }
+
+    box.innerHTML = "";
+
+    transactions.forEach(tx => {
+
+        const div =
+            document.createElement("div");
+
+        div.className="tx";
+
+        let type =
+            tx.type === "deposit"
+            ? "🟢 واریز"
+            : "🔴 برداشت";
+
+        div.innerHTML = `
+
+            <strong>${type}</strong>
+
+            <span>
+                مبلغ:
+                <b>${tx.amount} USDT</b>
+            </span>
+
+            <span>
+                آدرس:
+                <span dir="ltr">${tx.address}</span>
+            </span>
+
+            ${
+                tx.txid
+                ?
+                `<span>
+                    TXID:
+                    <span dir="ltr">${tx.txid}</span>
+                </span>`
+                :
+                ""
+            }
+
+            <span>
+                وضعیت:
+                <span class="status">${tx.status}</span>
+            </span>
+
+            <span>
+                تاریخ:
+                ${tx.date}
+            </span>
+
+            <button onclick="approveTransaction(${tx.id})">
+                ✅ تأیید
+            </button>
+
+            <button
+                class="red"
+                onclick="rejectTransaction(${tx.id})">
+                ❌ رد
+            </button>
+
+            ${
+                tx.type === "withdraw"
+                ?
+                `<button
+                    class="orange"
+                    onclick="paidTransaction(${tx.id})">
+                    💸 پرداخت شد
+                </button>`
+                :
+                ""
+            }
+
+        `;
+
+        box.appendChild(div);
+
+    });
+
 }
 
 
-/* جلوگیری از تزریق HTML */
-function escapeHtml(value){
+/* =========================
+   APPROVE
+========================= */
 
- return String(value)
-   .replaceAll("&","&amp;")
-   .replaceAll("<","&lt;")
-   .replaceAll(">","&gt;")
-   .replaceAll('"',"&quot;")
-   .replaceAll("'","&#039;");
+function approveTransaction(id){
+
+    const transactions =
+        getTransactions();
+
+    const tx =
+        transactions.find(x => x.id === id);
+
+    if(tx){
+
+        tx.status =
+            "تأیید شد";
+
+        saveTransactions(transactions);
+
+        renderTransactions();
+    }
+
+}
+
+
+/* =========================
+   REJECT
+========================= */
+
+function rejectTransaction(id){
+
+    const transactions =
+        getTransactions();
+
+    const tx =
+        transactions.find(x => x.id === id);
+
+    if(tx){
+
+        tx.status =
+            "رد شد";
+
+        saveTransactions(transactions);
+
+        renderTransactions();
+    }
+
+}
+
+
+/* =========================
+   PAID
+========================= */
+
+function paidTransaction(id){
+
+    const transactions =
+        getTransactions();
+
+    const tx =
+        transactions.find(x => x.id === id);
+
+    if(tx){
+
+        tx.status =
+            "پرداخت شد";
+
+        saveTransactions(transactions);
+
+        renderTransactions();
+    }
+
+}
+
+
+/* =========================
+   CLEAR
+========================= */
+
+function clearTransactions(){
+
+    if(
+        confirm(
+            "آیا مطمئن هستید تمام تراکنش‌ها پاک شوند؟"
+        )
+    ){
+
+        localStorage.removeItem(
+            "usdt_transactions"
+        );
+
+        renderTransactions();
+
+    }
+
 }
 
 </script>
 
 </body>
 </html>
-```
-
 </body>
 </html>
 ```
